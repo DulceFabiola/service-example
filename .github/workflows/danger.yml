@@ -1,7 +1,17 @@
 name: Danger actions
 'on':
   pull_request:
-    types: [opened, edited, reopened, synchronize, assigned, unassigned, review_requested, review_request_removed]
+    types:
+      [
+        opened,
+        edited,
+        reopened,
+        synchronize,
+        assigned,
+        unassigned,
+        review_requested,
+        review_request_removed,
+      ]
 jobs:
   danger-ci:
     name: Danger CI

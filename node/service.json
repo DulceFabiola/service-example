@@ -9,6 +9,10 @@
     "status": {
       "path": "/_v/status/:code",
       "public": true
+    },
+    "fortune": {
+      "path": "/_v/fortune-cookie-service/fortune",
+      "public": true
     }
   }
 }
