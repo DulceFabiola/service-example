@@ -1,20 +1,41 @@
 import { JanusClient } from '@vtex/api'
 
 export default class CustomMasterDataClient extends JanusClient {
+  private appKey = this.context.settings.VTEX_APP_KEY
+  private appToken = this.context.settings.VTEX_APP_TOKEN
+  private baseURL = `http://${this.context.account}.vtexcommercestable.com.br`
+
   public async getFortuneCookies() {
-    const appKey = this.context.settings.VTEX_APP_KEY
-    const appToken = this.context.settings.VTEX_APP_TOKEN
-
     return this.http.get(`/api/dataentities/CF/search`, {
-      baseURL: `http://${this.context.account}.vtexcommercestable.com.br`,
-
+      baseURL: this.baseURL,
       headers: {
-        'x-vtex-api-appkey': appKey,
-        'x-vtex-api-apptoken': appToken,
+        'x-vtex-api-appkey': this.appKey,
+        'x-vtex-api-apptoken': this.appToken,
       },
       params: {
-        _size: 20,
-        _fields: 'CookieFortune',
+        _size: 100,
+        _fields: 'id,CookieFortune',
+      },
+    })
+  }
+
+  public async createFortuneCookie(cookie: { CookieFortune: string }) {
+    return this.http.post(`/api/dataentities/CF/documents`, cookie, {
+      baseURL: this.baseURL,
+      headers: {
+        'x-vtex-api-appkey': this.appKey,
+        'x-vtex-api-apptoken': this.appToken,
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  public async deleteFortuneCookie(id: string) {
+    return this.http.delete(`/api/dataentities/CF/documents/${id}`, {
+      baseURL: this.baseURL,
+      headers: {
+        'x-vtex-api-appkey': this.appKey,
+        'x-vtex-api-apptoken': this.appToken,
       },
     })
   }

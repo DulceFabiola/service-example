@@ -13,6 +13,15 @@
     "fortune": {
       "path": "/_v/fortune-cookie-service/fortune",
       "public": true
+    },
+    "fortuneById": {
+      "path": "/_v/fortune-cookie-service/fortune/:id",
+      "public": true
+    }
+  },
+  "middlewares": {
+    "default": {
+      "implementation": "body"
     }
   }
 }

@@ -4,7 +4,12 @@ import { LRUCache, method, Service } from '@vtex/api'
 import { Clients } from './clients'
 import { status } from './middlewares/status'
 import { validate } from './middlewares/validate'
-import { getFortuneCookie } from './handlers/fortune'
+import {
+  getFortuneCookie,
+  createFortuneCookie,
+  deleteFortuneCookie,
+} from './handlers/fortune'
+import { bodyParser } from './middlewares/body'
 
 const TIMEOUT_MS = 800
 
@@ -41,6 +46,10 @@ export default new Service({
     }),
     fortune: method({
       GET: getFortuneCookie,
+      POST: [bodyParser, createFortuneCookie],
+    }),
+    fortuneById: method({
+      DELETE: deleteFortuneCookie,
     }),
   },
 })
